@@ -42,6 +42,7 @@ $$
 - Expert → Top-k Gating에 따라 특정 Expert를 고름. 모든 파라미터를 매번 활성화하지 않고도 여러 Expert 활용 가능
 ![alt text](image-4.png)
 ![alt text](image-5.png)
+![alt text](image-8.png)
 
 # Expert Parallelism vs Tensor Parllelism
 ![alt text](image-6.png)
