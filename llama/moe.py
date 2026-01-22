@@ -87,9 +87,13 @@ class Experts(nn.Module):
         e = self.num_local_experts
         D = self.dim
 
-        x_egD = routed_in_egD.view(e, -1, D)
+        # Expert 별로 토큰 reshape
+        x_egD = routed_in_egD.view(e, -1, D) 
 
-        out_egD = self.batched_swiglu(x_egD, self.w1, self.w3, self.w2)
+        # Llama 4의 MoE는 모든 Local Expert에 대해 FFN 연산을 일괄적으로 수행
+        # 동적으로 때에 따라 Expert를 enable하고 disable하는 과정을 거치는 것보다 (gpu divergence 유발)
+        # 차라리 분기 없이 gpu 병렬처리를 잘 하는 게 낫다고 판단한 듯
+        out_egD = self.batched_swiglu(x_egD, self.w1, self.w3, self.w2) 
         out_egD = out_egD.view(-1, D)
 
         return out_egD

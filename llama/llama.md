@@ -42,3 +42,10 @@ $$
 - Expert → Top-k Gating에 따라 특정 Expert를 고름. 모든 파라미터를 매번 활성화하지 않고도 여러 Expert 활용 가능
 ![alt text](image-4.png)
 ![alt text](image-5.png)
+
+# Expert Parallelism vs Tensor Parllelism
+![alt text](image-6.png)
+![alt text](image-7.png)
+
+- EP는 개념적으로 이해하기는 좋지만, GPU가 CPU처럼 branch에 유리한 구조가 아닐뿐더러 Token의 로드밸런싱이 불균형할 수 있음
+- 이에 따라, Llama 4 MoE에서는 모든 Expert의 일부 Weight를 한 GPU에 나눠들고 있는 TP를 채택한듯
